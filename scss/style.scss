@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap');
+
+/*---------------------------
+    variables
+---------------------------*/
+$primary: #333333;
+$secondary: #3e86d8;
+$white: #fff;
+$lightGray: #f7f7f7;
+$mediumGray: #cbcbcb;
+$fontFamily: 'Source Sans Pro', sans-serif;
+$fontSize: 16px;
+$transition: .3s ease;
+$py: 70px 0;
+$pyResp: 35px 0;
+
+/*---------------------------
+    basic styles
+---------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $fontFamily;
+    font-size: $fontSize;
+    color: $primary;
+    background: $secondary;
+    line-height: 1.7;
+}
+
+.container-fluid {
+    width: 98%;
+    margin: auto;
+    @media(max-width: 768px) {
+        width: 95%;
+    }
+}
+
+.container {
+    width: 70%;
+    margin: auto;
+    @media(max-width: 768px) {
+        width: 95%;
+    }
+}
+
+.active {
+    color: $mediumGray;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $white;
+    font-size: .9rem;
+    &:hover {
+        color: $mediumGray;
+        transition: $transition;
+    }
+}
+
+/*---------------------------
+    mixins
+---------------------------*/
+@mixin flex($justify, $align, $direction, $wrap) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+}
+
+@mixin bg-img($position, $size, $height) {
+    background-position: $position;
+    background-size: $size;
+    height: $height;
+}
+
+@mixin btn($bg-color, $ft-color, $px, $py) {
+    background: $bg-color;
+    color: $ft-color;
+    padding: $px $py;
+    text-transform: uppercase;
+    border: none;
+    font-weight: 700;
+    &:hover {
+        cursor: pointer;
+        color: $mediumGray;
+        transition: $transition;
+        background: $primary;
+    }
+}
+
+/*---------------------------
+    header
+---------------------------*/
+header {
+    background-image: url(../img/header.jpg);
+    @include bg-img(center, cover, 55vh);
+    @media(max-width: 768px) {
+        @include bg-img(center, cover, 35vh);
+    }
+    .container {
+        height: 100%;
+        @include flex(space-between, stretch, column, wrap);
+        .top-bar {
+            @include flex(space-between, flex-start, row, wrap);
+            margin-top: 20px;
+            .logo {
+                background: rgba($secondary, .6);
+                h2 {
+                    color: $white;
+                    font-size: 2rem;
+                    line-height: 1;
+                    padding: 10px 15px 0 15px;
+                    text-transform: initial;
+                }
+                h3 {
+                    color: $mediumGray;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    text-align: center;
+                    padding: 0 5px 15px 5px;
+                    text-transform: initial;
+                }
+            }
+            .bars {
+                display: none;
+                @media(max-width: 768px) {
+                    @include flex(center, center, column, wrap);
+                    cursor: pointer;
+                }
+                .bar {
+                    width: 25px;
+                    height: 3px;
+                    background: $secondary;
+                    margin: 3px;
+                    transition: background-color .2s ease-in-out, transform .2s ease-in-out;
+                }
+            }
+            .bars-open {
+                .bar:nth-child(1) {
+                    transition: transform .2s ease-in-out;
+                    transform: rotate(45deg) translate(6.5px, 6px);
+                }
+                .bar:nth-child(2) {
+                    opacity: 0;
+                }
+                .bar:nth-child(3) {
+                    transition: transform .2s ease-in-out;
+                    transform: rotate(-45deg) translate(6.5px, -6.5px);
+                }
+            }
+            .social {
+                background: linear-gradient(rgba($white, .8), rgba($white, .8));
+                @media(max-width: 768px) {
+                    @include flex(space-between, center, column, wrap);
+                    position: absolute;
+                    top: 10vh;
+                    right: 5%;
+                }
+                i {
+                    color: $secondary;
+                    margin: 0 7px;
+                    font-size: 1.5rem;
+                    line-height: 1.6;
+                    &:hover {
+                        cursor: pointer;
+                        color: $primary;
+                        transition: $transition;
+                    }
+                    @media(max-width: 768px) {
+                        margin: 0;
+                        font-size: 1.2rem;
+                        padding: 2px 5px;
+                    }
+                }
+            }
+        }
+        nav {
+            @media(max-width: 768px) {
+                display: none;
+                margin: 0;
+                position: absolute;
+                top: 15vh;
+                left: 0;
+                width: 100%;
+            }
+            @media(min-width: 769px) {
+                display: flex !important;
+            }
+            ul {
+                background: $secondary;
+                padding: 10px;
+                margin: auto;
+                @include flex(center, center, row, wrap);
+                @media(max-width: 768px) {
+                    margin: 0;
+                    @include flex(center, flex-start, column, wrap);
+                    width: 100%;
+                }
+                li {
+                    margin: 0 40px;
+                    @media(max-width: 768px) {
+                        margin: 0 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*---------------------------
+    landscape
+---------------------------*/
+.landscape {
+    background: $white;
+    padding: $py;
+    @media(max-width: 768px) {
+        padding: $pyResp;
+        text-align: center;
+    }
+    .container {
+        @include flex(space-between, flex-start, row, wrap);
+        article {
+            color: $primary;
+            flex: 0 0 23%;
+            @media(max-width: 768px) {
+                flex: 0 0 100%;
+            }
+            h3 {
+                font-weight: 300;
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+                @media(max-width: 768px) {
+                    margin-bottom: 15px;
+                }
+            }
+            img {
+                width: 100%;
+            }
+            p {
+                font-size: .9rem;
+                @media(max-width: 768px) {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}
+
+/*---------------------------
+    elements
+---------------------------*/
+.elements {
+    background: $lightGray;
+    padding: $py;
+    @media(max-width: 768px) {
+        padding: $pyResp;
+        text-align: center;
+    }
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 300;
+        text-align: center;
+        line-height: 1.2;
+        @media(max-width: 768px) {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+    }
+    h3 {
+        font-size: 1.3rem;
+        font-weight: 300;
+        letter-spacing: 1.4px;
+        text-align: center;
+        margin-bottom: 40px;
+        @media(max-width: 768px) {
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+    }
+    article {
+        @include flex(space-between, center, row, wrap);
+        div {
+            flex: 0 0 24%;
+            @media(max-width: 768px) {
+                flex: 0 0 100%;
+                &:last-child {
+                    button {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            h3 {
+                margin-bottom: 15px;
+                letter-spacing: normal;
+                @media(max-width: 768px) {
+                    
+                }
+            }
+            p {
+                text-align: center;
+            }
+            button {
+                @include btn($secondary, $white, 12px, 30px);
+                display: block;
+                margin: 15px auto;
+                @media(max-width: 768px) {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+}
+
+/*---------------------------
+    footer
+---------------------------*/
+footer {
+    p {
+        text-align: center;
+        padding: 20px 0;
+        color: $lightGray;
+    }
+    
+}
